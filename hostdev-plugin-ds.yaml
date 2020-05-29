@@ -1,24 +1,32 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+  labels:
+    k8s-app: hostdev-device-plugin
   name: hostdev-device-plugin
   namespace: kube-system
 spec:
+  selector:
+    matchLabels:
+      k8s-app: hostdev-device-plugin
   template:
     metadata:
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ""
       labels:
-        name: hostdev-device-plugin-ds
+        k8s-app: hostdev-device-plugin
     spec:
+      nodeSelector:
+        kubernetes.io/arch: arm
       tolerations:
       - key: CriticalAddonsOnly
         operator: Exists
       hostNetwork: true
       containers:
       - name: hostdev
-        image: mythay/hostdev-device-plugin-armhf
-        args: ["--devs", "/dev/mem:r"]
+        image: mythay/k8s-hostdev-plugin:v0.1
+        imagePullPolicy: IfNotPresent
+        args: ["--devs", "/dev/ttyACM0:rwm"]
         securityContext:
           privileged: true
         volumeMounts:
