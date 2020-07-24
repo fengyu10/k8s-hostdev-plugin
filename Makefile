@@ -1,5 +1,5 @@
-REPO ?= ccr.ccs.tencentyun.com/paas
-TAG ?= 0.1
+REPO ?= harbor.58corp.com/ailab
+TAG ?= v2.0
 IMG=$(REPO)/k8s-hostdev-plugin:$(TAG)
 BIN=k8s-hostdev-plugin
 
