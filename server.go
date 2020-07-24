@@ -195,7 +195,7 @@ func NewHostDevicePlugin(devCfg *DevConfig) (*HostDevicePlugin, error) {
 		return nil, err
 	}
         var devs []*pluginapi.Device
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 8; i++ {
 		numberIndex := fmt.Sprintf("%02d", i)
 		devs = append(devs, &pluginapi.Device{ID: devCfg.DevName + numberIndex, Health: pluginapi.Healthy})
 	}
